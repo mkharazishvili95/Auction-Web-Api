@@ -1,0 +1,106 @@
+CREATE TABLE dbo.UserAddress (
+Id INT IDENTITY(1,1) PRIMARY KEY,
+Country VARCHAR (255) NOT NULL,
+City VARCHAR (255) NOT NULL
+);
+
+
+
+
+
+
+CREATE TABLE dbo.Users (
+Id INT IDENTITY (1,1) PRIMARY KEY,
+FirstName VARCHAR (255) NOT NULL,
+LastName VARCHAR (255) NOT NULL,
+Age INT NOT NULL,
+IdentityNumber VARCHAR (255) NOT NULL,
+ContactNumber VARCHAR (255) NOT NULL,
+Balance DECIMAL NOT NULL,
+Email VARCHAR (255) NOT NULL,
+Password VARCHAR (255) NOT NULL,
+Role VARCHAR (255) NOT NULL,
+AddressId INT,
+CONSTRAINT FK_UserAddress FOREIGN KEY (AddressId) REFERENCES dbo.UserAddress (Id)
+);
+
+CREATE TABLE dbo.BlockedUsers (
+Id INT IDENTITY (1,1) PRIMARY KEY,
+Email VARCHAR (255) NOT NULL,
+UserId INT NOT NULL,
+BlockedDate DATETIME NOT NULL
+);
+
+
+DROP TABLE dbo.Users
+
+CREATE TABLE dbo.Loggs (
+Id INT IDENTITY (1,1) PRIMARY KEY,
+LoggedUser VARCHAR (255) NOT NULL,
+UserId INT NOT NULL,
+LoggedDate DATETIME NOT NULL
+);
+
+drop table dbo.UserAddress
+SELECT * FROM DBO.USERS
+SELECT * FROM DBO.UserAddress
+SELECT * FROM DBO.LOGGS
+
+delete from dbo.users
+delete from dbo.useraddress
+
+
+CREATE TABLE dbo.UserAddress (
+Id INT IDENTITY (1,1) PRIMARY KEY,
+Country VARCHAR (255) NOT NULL,
+City VARCHAR (255) NOT NULL
+);
+
+
+CREATE TABLE dbo.Product (
+Id INT IDENTITY(1,1) PRIMARY KEY,
+Name VARCHAR (255) NOT NULL,
+Description VARCHAR (255) NOT NULL,
+StartingPrice DECIMAL NOT NULL,
+CurrentPrice DECIMAL NOT NULL,
+StartTime DATETIME NOT NULL,
+EndTime DATETIME NOT NULL,
+IsAvailable BIT NOT NULL,
+SellerId INT NOT NULL,
+BuyerId INT,
+CategoryId INT NOT NULL
+);
+
+
+CREATE TABLE dbo.Categories (
+Id INT IDENTITY (1,1) PRIMARY KEY,
+Name VARCHAR (255) NOT NULL
+);
+
+CREATE TABLE dbo.Bidders (
+Id INT IDENTITY(1,1) PRIMARY KEY,
+BidderId INT NOT NULL,
+BidderEmail VARCHAR (255) NOT NULL,
+BiddingCurrentAmount DECIMAL NOT NULL,
+BiddingDate DATETIME NOT NULL,
+ProductId INT NOT NULL,
+FK_Category FOREIGN KEY (CategoryId) REFERENCES dbo.Categories (Id);
+);
+
+
+CREATE TABLE dbo.Transactions (
+Id INT IDENTITY(1,1) PRIMARY KEY,
+TransactionDate DATETIME NOT NULL,
+SenderId INT NOT NULL,
+ReceiverId INT NOT NULL,
+ProductId  INT NOT NULL,
+Amount DECIMAL NOT NULL
+);
+
+
+CREATE TABLE dbo.CompanyAccount(
+Id INT IDENTITY (1,1) PRIMARY KEY,
+Balance DECIMAL);
+
+INSERT INTO dbo.Companyaccount(Balance)
+VALUES (0) SELECT SCOPE_IDENTITY();
